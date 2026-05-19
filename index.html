@@ -4,21 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Sundown Bar | Blingzy's</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
 
+    <div id="floating-cart-trigger" class="floating-cart-badge">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span id="cart-floating-counter" class="cart-count-node">0</span>
+    </div>
+
     <header>
         <div class="logo">Blingzy's<br><span class="sublogo">THE SUNDOWN BAR</span></div>
         <nav>
             <ul class="nav-links">
-                <li><a href="#menu">Menu</a></li>
+                <li><a href="#menu-section">Menu</a></li>
+                <li><a href="#spatial-map-section">Floor Map</a></li>
                 <li><a href="#rates">Rates</a></li>
                 <li><a href="#promos">Promos</a></li>
                 <li><a href="#rules">Rules</a></li>
-                <li><a href="#order-section">Order Now</a></li>
+                <li><a href="#order-section">Order Sheet</a></li>
             </ul>
         </nav>
         <a href="#booking" class="btn-reserve-nav">Book A Table</a>
@@ -30,40 +36,75 @@
             <h1 class="text-neon-pink">WE'RE ALIVE TONIGHT</h1>
             <p>Chase twilight views, high-tier mixology, and absolute late-night energy.</p>
             <div class="hero-btn-group">
-                <a href="#menu" class="btn-main-glow">View Menu</a>
+                <a href="#menu-section" class="btn-main-glow">View Menu</a>
                 <a href="#booking" class="btn-sub-glow">Reserve Table</a>
             </div>
         </div>
     </section>
 
-    <section id="menu">
+    <section id="menu-section">
         <div class="section-header">
             <h2 class="gold-heading">CRISP & CRAFTED</h2>
             <h1 class="text-neon-blue">THE MENU</h1>
         </div>
-        <div class="menu-grid">
-            <div class="menu-item-card">
-                <div class="item-main">
-                    <h3 class="gold-heading">Sunset Sangria</h3>
-                    <span class="price">₱290</span>
-                </div>
-                <p class="desc">Red wine blend infused with fresh citrus slices, triple sec, and a splash of bright soda.</p>
+        <div class="menu-controls-wrapper">
+            <div class="search-box-frame">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="menu-search-input" placeholder="Search drinks, bar bites...">
             </div>
-            <div class="menu-item-card premium">
-                <span class="badge-pink">Bestseller</span>
-                <div class="item-main">
-                    <h3 class="gold-heading">Glazed Pork Sisig Bites</h3>
-                    <span class="price">₱360</span>
-                </div>
-                <p class="desc">Crunchy, savory pork sisig served on cast-iron mini skillets with a lingering citrus zest.</p>
+            <div class="category-tabs-row">
+                <button type="button" class="category-tab active" data-category="all">All Items</button>
+                <button type="button" class="category-tab" data-category="drinks">Craft Drinks</button>
+                <button type="button" class="category-tab" data-category="bites">Bar Bites</button>
             </div>
-            <div class="menu-item-card">
-                <div class="item-main">
-                    <h3 class="gold-heading">Neon Horizon Cocktail</h3>
-                    <span class="price">₱320</span>
-                </div>
-                <p class="desc">Blue curaçao, premium gin, and tonic water, served with a glowing pink sugar rim.</p>
+        </div>
+        <div id="dynamic-menu-grid" class="menu-grid"></div>
+    </section>
+
+    <section id="spatial-map-section">
+        <div class="section-header">
+            <h2 class="gold-heading">ATMOSPHERIC PLANNER</h2>
+            <h1 class="text-neon-pink">SELECT YOUR TABLE</h1>
+        </div>
+        
+        <div class="spatial-map-wrapper">
+            <div class="map-legend-row">
+                <div class="legend-item"><span class="legend-dot open"></span> Available</div>
+                <div class="legend-item"><span class="legend-dot active-select"></span> Selected</div>
+                <div class="legend-item"><span class="legend-dot reserved"></span> Occupied</div>
             </div>
+
+            <div class="floor-grid-blueprint">
+                <div class="map-zone bar-zone">
+                    <span class="zone-tag">BAR COUNTER LOUNGE</span>
+                    <div class="seats-row">
+                        <div class="table-node bar-stool" data-table="Bar Stool 1">B1</div>
+                        <div class="table-node bar-stool" data-table="Bar Stool 2">B2</div>
+                        <div class="table-node bar-stool reserved" data-table="Bar Stool 3">OCC</div>
+                        <div class="table-node bar-stool" data-table="Bar Stool 4">B4</div>
+                    </div>
+                </div>
+
+                <div class="map-zone vip-zone">
+                    <span class="zone-tag">VIP GLASS COUCHES</span>
+                    <div class="seats-row">
+                        <div class="table-node vip-sofa" data-table="VIP Couch A">VIP A</div>
+                        <div class="table-node vip-sofa reserved" data-table="VIP Couch B">OCC</div>
+                        <div class="table-node vip-sofa" data-table="VIP Couch C">VIP C</div>
+                    </div>
+                </div>
+
+                <div class="map-zone deck-zone">
+                    <span class="zone-tag">SUNDOWN DECK OPEN AIR</span>
+                    <div class="seats-row">
+                        <div class="table-node deck-table" data-table="Deck Table 1">D1</div>
+                        <div class="table-node deck-table" data-table="Deck Table 2">D2</div>
+                        <div class="table-node deck-table" data-table="Deck Table 3">D3</div>
+                        <div class="table-node deck-table reserved" data-table="Deck Table 4">OCC</div>
+                    </div>
+                </div>
+            </div>
+            <p class="map-hint-text">💡 Click an available table layout node above to auto-fill the form configurations inputs below.</p>
         </div>
     </section>
 
@@ -137,7 +178,7 @@
             </div>
             <div class="rule-line">
                 <span class="rule-num text-neon-pink">02</span>
-                <p><strong>Age Limit:</strong> 21+ only after 8:00 PM. Valid IDs are strictly checked at the entry.</p>
+                <p><strong>Age Limit:</strong> 21+ only after 8:00 PM. Valid IDs are strictly required at the entry.</p>
             </div>
             <div class="rule-line">
                 <span class="rule-num text-neon-blue">03</span>
@@ -152,77 +193,38 @@
             <h1 class="text-neon-pink">PLACE AN ORDER</h1>
         </div>
         <div class="booking-container">
+            <div id="qr-routing-notice" class="qr-notice-bar" style="display: none;">
+                <i class="fa-solid fa-qrcode text-neon-blue"></i> Smart Route Activated: Locked to <strong id="detected-table-label">Table --</strong>
+            </div>
+
             <form id="order-form">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="order_table">Table Number / Location</label>
-                        <input type="text" id="order_table" name="order_table" placeholder="e.g., Table 12, VIP Couch A" required>
+                        <input type="text" id="order_table" placeholder="Select from map above or type location" required>
                     </div>
                     <div class="form-group">
                         <label for="customer_name">Name / Crew Name</label>
-                        <input type="text" id="customer_name" name="customer_name" placeholder="Your name" required>
+                        <input type="text" id="customer_name" placeholder="Your name" required>
                     </div>
                 </div>
 
                 <div class="order-items-list">
                     <label class="form-main-label">Select Items & Quantities</label>
-                    
-                    <div class="order-item-row">
-                        <div class="order-item-info">
-                            <span class="order-item-name gold-heading">Sunset Sangria</span>
-                            <span class="order-item-price">₱290</span>
+                    <div id="dynamic-order-rows-box">
                         </div>
-                        <div class="quantity-control">
-                            <button type="button" class="qty-btn minus" data-price="290">-</button>
-                            <input type="number" name="qty_sangria" class="item-qty" value="0" min="0" readonly>
-                            <button type="button" class="qty-btn plus" data-price="290">+</button>
-                        </div>
-                    </div>
-
-                    <div class="order-item-row">
-                        <div class="order-item-info">
-                            <span class="order-item-name gold-heading">Glazed Pork Sisig Bites</span>
-                            <span class="order-item-price">₱360</span>
-                        </div>
-                        <div class="quantity-control">
-                            <button type="button" class="qty-btn minus" data-price="360">-</button>
-                            <input type="number" name="qty_sisig" class="item-qty" value="0" min="0" readonly>
-                            <button type="button" class="qty-btn plus" data-price="360">+</button>
-                        </div>
-                    </div>
-
-                    <div class="order-item-row">
-                        <div class="order-item-info">
-                            <span class="order-item-name gold-heading">Neon Horizon Cocktail</span>
-                            <span class="order-item-price">₱320</span>
-                        </div>
-                        <div class="quantity-control">
-                            <button type="button" class="qty-btn minus" data-price="320">-</button>
-                            <input type="number" name="qty_horizon" class="item-qty" value="0" min="0" readonly>
-                            <button type="button" class="qty-btn plus" data-price="320">+</button>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="bill-summary-box">
-                    <div class="summary-line">
-                        <span>Subtotal:</span>
-                        <span id="summary-subtotal">₱0.00</span>
-                    </div>
-                    <div class="summary-line tax-line">
-                        <span>10% Service Charge & Tax:</span>
-                        <span id="summary-tax">₱0.00</span>
-                    </div>
-                    <div class="summary-line total-line">
-                        <span>Total Bill:</span>
-                        <span id="summary-total" class="text-neon-pink">₱0.00</span>
-                    </div>
+                    <div class="summary-line"><span>Subtotal:</span><span id="summary-subtotal">₱0.00</span></div>
+                    <div class="summary-line tax-line"><span>10% Service Charge & Tax:</span><span id="summary-tax">₱0.00</span></div>
+                    <div class="summary-line total-line"><span>Total Bill:</span><span id="summary-total" class="text-neon-pink">₱0.00</span></div>
                 </div>
 
                 <input type="hidden" id="hidden_order_summary" name="order_summary_text" value="">
                 <input type="hidden" id="hidden_total_price" name="total_price" value="₱0.00">
 
-                <button type="submit" class="btn-submit-order">Send Order to Bar Counter</button>
+                <button type="submit" class="btn-submit-order">Open Basket & Checkout</button>
             </form>
             <div id="order-status" class="form-status-msg"></div>
         </div>
@@ -238,42 +240,36 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="user_name">Full Name</label>
-                        <input type="text" id="user_name" name="user_name" placeholder="Juan Dela Cruz" required>
+                        <input type="text" id="user_name" placeholder="Juan Dela Cruz" required>
                     </div>
                     <div class="form-group">
                         <label for="user_email">Email Address</label>
-                        <input type="email" id="user_email" name="user_email" placeholder="juan@email.com" required>
+                        <input type="email" id="user_email" placeholder="juan@email.com" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="user_phone">Phone Number</label>
-                        <input type="tel" id="user_phone" name="user_phone" placeholder="0917XXXXXXX" required>
+                        <input type="tel" id="user_phone" placeholder="0917XXXXXXX" required>
                     </div>
                     <div class="form-group">
-                        <label for="guest_count">Number of Guests</label>
-                        <select id="guest_count" name="guest_count" required>
-                            <option value="" disabled selected>Select headcount</option>
-                            <option value="1-3 Pax">1 - 3 Pax</option>
-                            <option value="4-6 Pax">4 - 6 Pax (Standard Lounge)</option>
-                            <option value="8-10 Pax">8 - 10 Pax (VIP Couch)</option>
-                            <option value="15-20 Pax">15 - 20 Pax (Sundown Deck)</option>
-                        </select>
+                        <label for="booking_table_select">Selected Space Location</label>
+                        <input type="text" id="booking_table_select" placeholder="Click target table from floor plan map above" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="booking_date">Reservation Date</label>
-                        <input type="date" id="booking_date" name="booking_date" required>
+                        <input type="date" id="booking_date" required>
                     </div>
                     <div class="form-group">
                         <label for="booking_time">Arrival Time</label>
-                        <input type="time" id="booking_time" name="booking_time" required>
+                        <input type="time" id="booking_time" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="special_notes">Special Requests / Occasion</label>
-                    <textarea id="special_notes" name="special_notes" rows="3" placeholder="Birthday celebration, dietary requests, close to DJ deck, etc..."></textarea>
+                    <textarea id="special_notes" rows="3" placeholder="Birthday celebration, dietary requests, close to DJ deck, etc..."></textarea>
                 </div>
                 <button type="submit" class="btn-submit-booking">Submit Booking Request</button>
             </form>
@@ -303,6 +299,87 @@
         </div>
     </footer>
 
-    <script src="./assets/js/app.js"></script>
+    <div id="cart-drawer-backdrop" class="cart-drawer-overlay">
+        <div class="cart-drawer-body">
+            <div class="cart-drawer-header">
+                <h2 class="gold-heading"><i class="fa-solid fa-basket-shopping text-neon-pink"></i> ORDER BASKET</h2>
+                <button type="button" id="close-drawer-btn" class="close-drawer-icon">&times;</button>
+            </div>
+            <div class="modal-vibe-line"></div>
+            
+            <div id="cart-items-manifest-box" class="cart-manifest-scrollarea">
+                </div>
+
+            <div class="drawer-fixed-footer">
+                <div class="receipt-bill-rows">
+                    <div class="r-row"><span>Basket Subtotal:</span><span id="d-subtotal">₱0.00</span></div>
+                    <div class="r-row"><span>Surcharges Fee (10%):</span><span id="d-tax">₱0.00</span></div>
+                    <div class="r-row total"><span class="text-neon-pink">Total Gross Bill:</span><span id="d-total" class="text-neon-pink">₱0.00</span></div>
+                </div>
+                <button type="button" id="trigger-checkout-gate-btn" class="btn-drawer-checkout">Proceed to Secure Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="receipt-modal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header-box">
+                <div class="logo">Blingzy's<br><span class="sublogo">THE SUNDOWN BAR</span></div>
+                <button type="button" id="close-modal-btn" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-vibe-line"></div>
+            
+            <div id="printable-receipt-area" class="receipt-paper">
+                <h2 class="receipt-title gold-heading">OFFICIAL BILL SUMMARY</h2>
+                <p class="receipt-meta">Date: <span id="r-date">--/--/----</span> | Time: <span id="r-time">--:--</span></p>
+                <p class="receipt-meta"><strong>Location: <span id="r-table" class="text-neon-blue">--</span></strong></p>
+                <p class="receipt-meta">Customer: <span id="r-name">--</span></p>
+                <div class="receipt-divider"></div>
+                <div id="receipt-items-container"></div>
+                <div class="receipt-divider"></div>
+                <div class="receipt-bill-rows">
+                    <div class="r-row"><span>Subtotal:</span><span id="r-subtotal">₱0.00</span></div>
+                    <div class="r-row"><span>10% Service Charge & Tax:</span><span id="r-tax">₱0.00</span></div>
+                    <div class="r-row total"><span class="text-neon-pink">Total Amount Due:</span><span id="r-total" class="text-neon-pink">₱0.00</span></div>
+                </div>
+            </div>
+
+            <div class="receipt-divider"></div>
+
+            <div class="payment-channels-box">
+                <h3 class="gold-heading">CHOOSE PAYMENT METHOD</h3>
+                <div class="payment-selector-tabs">
+                    <button type="button" class="pay-method-btn active" data-method="gcash"><i class="fa-solid fa-mobile-screen"></i> GCash</button>
+                    <button type="button" class="pay-method-btn" data-method="maya"><i class="fa-solid fa-wallet"></i> Maya</button>
+                    <button type="button" class="pay-method-btn" data-method="card"><i class="fa-solid fa-credit-card"></i> Card</button>
+                </div>
+
+                <div class="sandbox-terminal-container">
+                    <div id="terminal-wallet" class="sandbox-subform active">
+                        <p class="payment-instruction">Enter your account phone token to establish direct sandbox handshake:</p>
+                        <div class="sandbox-input-row">
+                            <span class="sandbox-prefix">+63</span>
+                            <input type="tel" id="wallet-phone-input" placeholder="917XXXXXXX" maxlength="10">
+                        </div>
+                    </div>
+                    <div id="terminal-card" class="sandbox-subform">
+                        <p class="payment-instruction">Enter credit/debit routing authentication sequences:</p>
+                        <input type="text" id="card-num-input" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" class="sandbox-full-input">
+                        <div class="sandbox-input-grid">
+                            <input type="text" id="card-exp-input" placeholder="MM/YY" maxlength="5">
+                            <input type="password" id="card-cvv-input" placeholder="CVV" maxlength="3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-actions-group">
+                <button type="button" id="print-receipt-btn" class="btn-action-print"><i class="fa-solid fa-print"></i> Save PDF</button>
+                <button type="button" id="confirm-payment-btn" class="btn-action-paid"><i class="fa-solid fa-shield-halved"></i> Process Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
